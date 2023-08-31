@@ -13,11 +13,20 @@ module.exports = class ToughtsController {
         search = req.query.search
     }
 
+    let order = 'DESC'
+
+    if(req.query.order === 'old') {
+      order = 'ASC'
+    }else {
+      order = 'DESC'
+    }
+
     const toughtData = await Tought.findAll({
         include: User,
         where: {
             title: {[Op.like]: `%${search}%`}
         },
+        order:[['createdAt', order]]
     });
 
     const toughts = toughtData.map((result) => 
@@ -27,6 +36,10 @@ module.exports = class ToughtsController {
     )
 
     let toughtsQty = toughts.length
+
+    if(toughtsQty === 0){
+        toughtsQty = false;
+    }
 
     res.render("toughts/home", {toughts, search, toughtsQty});
   }

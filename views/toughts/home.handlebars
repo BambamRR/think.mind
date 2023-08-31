@@ -2,6 +2,11 @@
 
     {{#if search}}
         <h1>Você está buscando por <span>{{search}}</span></h1>
+        {{#if toughtsQty}}
+            <p>Foram encontrados <span>{{toughtsQty}}</span> pensamentos</p>
+        {{else}}
+            <p>Nenhum pensamento com o termo foi encontrado</p>
+        {{/if}}
     {{else}}
     <h1>Pensamentos</h1>
     {{/if}}
@@ -18,7 +23,7 @@
         </form>
         <form action="/" method="get">
             <input type="hidden" name="search" value="{{this.search}}">
-            <input type="hidden" name="order" value="new">
+            <input type="hidden" name="order" value="old">
             <button type="submit"><i class="bi bi-arrow-down"></i></button>
         </form>
         <a href="/">Limpar</a>
